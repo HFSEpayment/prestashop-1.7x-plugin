@@ -20,8 +20,8 @@ class HBepay extends PaymentModule
     {
         $this->name                   = 'hbepay';
         $this->tab                    = 'payments_gateways';
-        $this->version                = '1.0';
-        $this->author                 = 'SprintSquads';
+        $this->version                = '2.0';
+        $this->author                 = 'Epay';
         $this->bootstrap              = true;
         $this->displayName            = 'HBepay';
         $this->description            = 'HB epay payment gateway';
@@ -162,6 +162,24 @@ class HBepay extends PaymentModule
                         'label' => $this->l('Terminal'),
                         'required' => true
                     ),
+                    array(
+                        'type' => 'radio',
+                        'label' => $this->l('Credit/Installment'),
+                        'name' => 'hbepay_IS_CREDIT',
+                        'desc' => $this->l('Is credit/installment enabled'),
+                        'values' => array(
+                            array(
+                                'id' => 'active_on',
+                                'value' => 1,
+                                'label' => $this->l('Yes'),
+                            ),
+                            array(
+                                'id' => 'active_off',
+                                'value' => 0,
+                                'label' => $this->l('No'),
+                            )
+                        ),
+                    ),
                 ),
                 'submit' => array(
                     'title' => $this->l('Save'),
@@ -179,6 +197,7 @@ class HBepay extends PaymentModule
             'hbepay_CLIENT_SECRET' => Configuration::get('hbepay_CLIENT_SECRET', null),
             'hbepay_TERMINAL' => Configuration::get('hbepay_TERMINAL', null),
             'hbepay_TEST_MODE' => Configuration::get('hbepay_TEST_MODE', null),
+            'hbepay_IS_CREDIT' => Configuration::get('hbepay_IS_CREDIT', null),
         );
     }
 

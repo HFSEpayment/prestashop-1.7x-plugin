@@ -19,9 +19,9 @@ class HbepayRedirectModuleFrontController extends ModuleFrontController
 
     	$payCurrency = Context::getContext()->currency;
 
-    	$test_url = "https://testoauth.homebank.kz/epay2/oauth2/token";
+    	$test_url = "https://test-epay-oauth.epayment.kz/oauth2/token";
 		$prod_url = "https://epay-oauth.homebank.kz/oauth2/token";
-		$test_page = "https://test-epay.homebank.kz/payform/payment-api.js";
+		$test_page = "https://test-epay.epayment.kz/payform/payment-api.js";
         $prod_page = "https://epay.homebank.kz/payform/payment-api.js";
 
 		$token_api_url = "";
@@ -41,6 +41,7 @@ class HbepayRedirectModuleFrontController extends ModuleFrontController
 		$hbp_client_id = Configuration::get('hbepay_CLIENT_ID');
 		$hbp_client_secret = Configuration::get('hbepay_CLIENT_SECRET');
 		$hbp_terminal = Configuration::get('hbepay_TERMINAL');
+		$hbp_is_credit = (bool) Configuration::get('hbepay_IS_CREDIT');
 		$hbp_invoice_id ='0000000'. $cart->id;
 		$hbp_amount = $total;
 		$hbp_back_link = $link->getModuleLink('hbepay', 'validation');
@@ -67,7 +68,8 @@ class HbepayRedirectModuleFrontController extends ModuleFrontController
 				'currency'        => $hbp_currency,
 				'terminal'        => $hbp_terminal,
 				'postLink'        => '',
-				'failurePostLink' => ''
+				'failurePostLink' => '',
+				'is_credit'       => $hbp_is_credit ? 'Y' : 'N'
 			];
 		
 			$fields_string = http_build_query($fields);
